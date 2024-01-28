@@ -42,8 +42,8 @@ public class Engine {
         CloseWindow();
     }
 
-    public Sound newSound(String source, String type) {
-        sounds.add(new Sound(source, type));
+    public Sound newSound(String source, boolean stream) {
+        sounds.add(new Sound(source, stream));
         return sounds.get(sounds.size() - 1);
     }
 }

@@ -4,19 +4,19 @@ import static com.raylib.Jaylib.*;
 
 public class Sound {
 
-    private final String soundType; // sound or music.
+    private final boolean isStream; // Music is streamed, regular sounds are not.
     private final Music music;
 
-    public Sound(String source, String type) {
+    public Sound(String source, boolean stream) {
         music = LoadMusicStream(source);
-        soundType = type;
+        isStream = stream;
     }
 
     public void stream() {
-        if (soundType.equals("music")) {
+        if (isStream) {
             PlayMusicStream(music);
         } else {
-            System.out.println("This sound is not a music source.");
+            System.out.println("ERROR: This sound is not streamable.");
         }
     }
 
@@ -29,7 +29,7 @@ public class Sound {
     }
 
     public void destroy() {
-        if (soundType.equals("music")) {
+        if (isStream) {
             UnloadMusicStream(music);
         }
     }
