@@ -12,5 +12,4 @@ public class Room {
     private String description;
     private List<Item> items = new ArrayList<>();
     private List<NPC> npcs = new ArrayList<>();
-
 }
