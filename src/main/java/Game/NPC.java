@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class NPC {
     public static void main(String [] args)
-    ArrayList<string> NPC = new ArrayList<string>();//adding the multiple NPCs to the list
+    ArrayList<String> NPC = new ArrayList<String>();//adding the multiple NPCs to the list
     {
         NPC.add("skeleton");
         NPC.add("slime");
