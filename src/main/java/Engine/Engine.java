@@ -2,7 +2,9 @@ package Engine;
 
 import javax.swing.*;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import Game.Scenes.MainMenu;
@@ -13,7 +15,9 @@ public class Engine {
     private CardLayout uiLayout;
     private JPanel masterPanel;
 
-    List<Scene> scenes = new ArrayList<>();
+    HashMap<String, Scene> scenes = new HashMap<>();
+    String currentScene;
+
     List<Sound> sounds = new ArrayList<>();
 
     public Engine(int width, int height) {
@@ -21,24 +25,28 @@ public class Engine {
         initUI(width, height);
 
         // Create all the scenes.
-        newScene(new MainMenu());
+        newScene("Main Menu", new MainMenu());
+
+        switchScene("Main Menu");
     }
 
     private void initUI(int width, int height) {
 
-        frame = new JFrame();
+        frame = new JFrame("Delve");
         uiLayout = new CardLayout();
 
         masterPanel = new JPanel();
         masterPanel.setLayout(uiLayout);
-
-        frame.setSize(width, height);
-        frame.setLayout(null);
-        frame.setTitle("Delve");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        masterPanel.setBackground(Color.GREEN);
 
         uiLayout.show(masterPanel, "1");
+
+        frame.add(masterPanel);
+        frame.setSize(width, height);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+
     }
 
     public void update() {
@@ -49,11 +57,15 @@ public class Engine {
 
     }
 
-    public Scene newScene(Scene scene) {
-        scenes.add(scene);
-        Scene addedScene = scenes.get(scenes.size() - 1);
-        masterPanel.add(addedScene.getPanel(), String.valueOf(scenes.size() + 1));
-        return addedScene;
+    public void switchScene(String name) {
+        currentScene = name;
+        uiLayout.show(masterPanel, name);
+    }
+
+    public void newScene(String name, Scene scene) {
+        scenes.put(name, scene);
+        Scene addedScene = scenes.get(name);
+        masterPanel.add(addedScene.getPanel(), name);
     }
 
     public Sound newSound(String source, boolean stream) {

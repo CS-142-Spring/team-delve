@@ -1,5 +1,7 @@
 package Engine;
 
+import java.awt.Color;
+
 import javax.swing.JPanel;
 
 public class Scene {
@@ -18,6 +20,10 @@ public class Scene {
 
     public void draw() {
 
+    }
+
+    public void setColors(Color background) {
+        uiPanel.setBackground(background);
     }
 
     public JPanel getPanel() {
