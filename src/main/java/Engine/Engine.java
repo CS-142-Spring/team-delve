@@ -1,62 +1,63 @@
 package Engine;
-import Engine.UI.UIElement;
-import Engine.UI.UIPanel;
 
+import javax.swing.*;
+import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.List;
-import static com.raylib.Jaylib.*;
+
+import Game.Scenes.MainMenu;
 
 public class Engine {
 
+    private JFrame frame;
+    private CardLayout uiLayout;
+    private JPanel masterPanel;
+
+    List<Scene> scenes = new ArrayList<>();
     List<Sound> sounds = new ArrayList<>();
-    List<UIElement> uiElements = new ArrayList<>();
 
     public Engine(int width, int height) {
 
-        InitWindow(width, height, "Delve");
-        SetTargetFPS(60);
-        InitAudioDevice();
+        initUI(width, height);
+
+        // Create all the scenes.
+        newScene(new MainMenu());
+    }
+
+    private void initUI(int width, int height) {
+
+        frame = new JFrame();
+        uiLayout = new CardLayout();
+
+        masterPanel = new JPanel();
+        masterPanel.setLayout(uiLayout);
+
+        frame.setSize(width, height);
+        frame.setLayout(null);
+        frame.setTitle("Delve");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
+        uiLayout.show(masterPanel, "1");
     }
 
     public void update() {
 
-        while (!WindowShouldClose()) {
-
-            // Update all sounds.
-            for (Sound sound : sounds) {
-                sound.update();
-            }
-
-            BeginDrawing();
-            ClearBackground(BLACK);
-
-            for (UIElement element : uiElements) {
-                element.draw();
-            }
-
-            EndDrawing();
-        }
     }
 
     public void cleanup() {
 
-        // Destroy all sound resources.
-        for (Sound sound : sounds) {
-            sound.stop();
-            sound.destroy();
-        }
+    }
 
-        CloseAudioDevice();
-        CloseWindow();
+    public Scene newScene(Scene scene) {
+        scenes.add(scene);
+        Scene addedScene = scenes.get(scenes.size() - 1);
+        masterPanel.add(addedScene.getPanel(), String.valueOf(scenes.size() + 1));
+        return addedScene;
     }
 
     public Sound newSound(String source, boolean stream) {
         sounds.add(new Sound(source, stream));
         return sounds.get(sounds.size() - 1);
-    }
-
-    public UIElement newUIPanel(int x, int y, int w, int h) {
-        uiElements.add(new UIPanel(x, y, w, h));
-        return uiElements.get(uiElements.size() - 1);
     }
 }

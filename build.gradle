@@ -3,7 +3,6 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 plugins {
     id 'java'
     id 'application'
-    id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 group 'org.example'
@@ -17,13 +16,12 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    implementation 'uk.co.electronstudio.jaylib:jaylib:4.5.+'
 }
 
 application {
-    if(DefaultNativePlatform.currentOperatingSystem.isMacOsX()) {
-        applicationDefaultJvmArgs = ['-XstartOnFirstThread']
-    }
+    // if(DefaultNativePlatform.currentOperatingSystem.isMacOsX()) {
+    //     applicationDefaultJvmArgs = ['-XstartOnFirstThread']
+    // }
 }
 
 test {

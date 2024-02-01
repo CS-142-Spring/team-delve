@@ -12,4 +12,16 @@ public class Room {
     private String description;
     private List<Item> items = new ArrayList<>();
     private List<NPC> npcs = new ArrayList<>();
+
+    public int roomDepth;
+    public Room exitLeft;
+    public Room exitRight;
+
+    public Room(int depth) {
+
+        roomDepth = depth;
+        exitRight = null;
+        exitLeft = null;
+
+    }
 }
