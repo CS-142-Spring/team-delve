@@ -1,53 +1,48 @@
 package Engine;
-import Engine.UI.UIElement;
-import Engine.UI.UIPanel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import static com.raylib.Jaylib.*;
+
+import Engine.UI.UI;
+import Game.Scenes.MainMenu;
 
 public class Engine {
 
+    UI ui;
+
+    HashMap<String, Scene> scenes = new HashMap<>();
+    String currentScene;
+
     List<Sound> sounds = new ArrayList<>();
-    List<UIElement> uiElements = new ArrayList<>();
 
     public Engine(int width, int height) {
 
-        InitWindow(width, height, "Delve");
-        SetTargetFPS(60);
-        InitAudioDevice();
+        ui = new UI(width, height);
+
+        // Create all the scenes.
+        newScene("Main Menu", new MainMenu());
+
+        switchScene("Main Menu");
     }
 
     public void update() {
 
-        while (!WindowShouldClose()) {
-
-            // Update all sounds.
-            for (Sound sound : sounds) {
-                sound.update();
-            }
-
-            BeginDrawing();
-            ClearBackground(BLACK);
-
-            for (UIElement element : uiElements) {
-                element.draw();
-            }
-
-            EndDrawing();
-        }
     }
 
     public void cleanup() {
 
-        // Destroy all sound resources.
-        for (Sound sound : sounds) {
-            sound.stop();
-            sound.destroy();
-        }
+    }
 
-        CloseAudioDevice();
-        CloseWindow();
+    public void switchScene(String name) {
+        currentScene = name;
+        ui.setCurrentPanel(name);
+    }
+
+    public void newScene(String name, Scene scene) {
+        scene.setLabel(name); // Display the scenes name.
+        ui.addPanel(scene.getPanel(), name);
+        scenes.put(name, scene);
     }
 
     public Sound newSound(String source, boolean stream) {
@@ -55,8 +50,4 @@ public class Engine {
         return sounds.get(sounds.size() - 1);
     }
 
-    public UIElement newUIPanel(int x, int y, int w, int h) {
-        uiElements.add(new UIPanel(x, y, w, h));
-        return uiElements.get(uiElements.size() - 1);
-    }
 }
