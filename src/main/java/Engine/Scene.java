@@ -2,6 +2,9 @@ package Engine;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import Engine.UI.UI;
+
 import java.awt.Color;
 import java.awt.BorderLayout;
 
@@ -20,7 +23,7 @@ public class Scene {
 
         uiLabel = new JLabel();
         uiLabel.setForeground(Color.WHITE);
-        uiLabel.setFont(Engine.getFont());
+        uiLabel.setFont(UI.getFont());
         uiPanel.add(uiLabel, BorderLayout.NORTH); // Just for testing purposes.
 
         uiPanel.setBackground(Color.BLACK);
