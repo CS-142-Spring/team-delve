@@ -8,7 +8,7 @@ import Engine.UI.UI;
 
 public class Engine {
 
-    UI ui;
+    private static UI ui;
 
     HashMap<String, Scene> scenes = new HashMap<>();
     String currentScene;
@@ -20,8 +20,7 @@ public class Engine {
         ui = new UI(width, height);
     }
 
-    public void switchScene(String name) {
-        currentScene = name;
+    public static void switchScene(String name) {
         ui.setCurrentPanel(name);
     }
 

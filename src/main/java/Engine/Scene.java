@@ -35,5 +35,9 @@ public class Scene {
     public JPanel getPanel() {
         return uiPanel;
     }
+
+    public BorderLayout getLayout() {
+        return uiLayout;
+    }
     
 }
