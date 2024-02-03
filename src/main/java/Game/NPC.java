@@ -14,7 +14,7 @@ public class NPC {
         int min=3; //min and max number in order for damage roll
         int max=8;
 
-        int attack(int min, int max) {
+        int attack(min, max) {
             Random random = new Random();
             return random.ints(min, max)
                     .findFirst()
