@@ -12,7 +12,7 @@ public class NPC {
             NPC.add("undead mage");
         }
         int min=3; //min and max number in order for damage roll
-        int max=8;
+        int max=8;//
 
         int attack(min, max) {
             Random random = new Random();
