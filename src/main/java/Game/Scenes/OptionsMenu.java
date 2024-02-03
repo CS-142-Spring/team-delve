@@ -1,11 +1,21 @@
 package Game.Scenes;
 
 import Engine.Scene;
+import Engine.UI.Label;
 
-/**
- * OptionsMenu
- */
 public class OptionsMenu extends Scene {
 
+    private Label placeholder;
+
+    public OptionsMenu() {
+
+        super();
+
+        placeholder = new Label("Options Menu");
+        placeholder.setFontSize("regular");
+
+        getPanel().add(placeholder, getLayout().NORTH);
+
+    }
     
 }
