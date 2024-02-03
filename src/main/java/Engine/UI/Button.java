@@ -1,22 +1,18 @@
 package Engine.UI;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
 import javax.swing.JButton;
 
-public class Button {
-
-    private JButton button;
+public class Button extends JButton {
 
     public Button(String text) {
-        button = new JButton(text);
 
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //Execute when button is pressed
-                System.out.println("You clicked the button");
-            }
-        });
+        super(text);
+
+        setForeground(Color.WHITE);
+        setBackground(Color.BLACK);
+        setFocusPainted(false);
+        setFont(UI.getFont("regular"));
     }
     
 }

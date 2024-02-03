@@ -1,13 +1,13 @@
 import Engine.*;
+import Game.Scenes.*;
 
 public class Main {
 
     public static void main(String args[]) {
 
-        Engine engine = new Engine(1280, 720);
+        Engine engine = new Engine(1920, 1080);
 
-        engine.update();
-        engine.cleanup();
+        engine.newScene(new MainMenu(), "Main Menu");
 
     }
 }

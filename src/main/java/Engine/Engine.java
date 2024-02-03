@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import Engine.UI.UI;
-import Game.Scenes.MainMenu;
 
 public class Engine {
 
@@ -19,19 +18,6 @@ public class Engine {
     public Engine(int width, int height) {
 
         ui = new UI(width, height);
-
-        // Create all the scenes.
-        newScene("Main Menu", new MainMenu());
-
-        switchScene("Main Menu");
-    }
-
-    public void update() {
-
-    }
-
-    public void cleanup() {
-
     }
 
     public void switchScene(String name) {
@@ -39,8 +25,9 @@ public class Engine {
         ui.setCurrentPanel(name);
     }
 
-    public void newScene(String name, Scene scene) {
-        scene.setLabel(name); // Display the scenes name.
+    // Due to the way CardLayout works,
+    // unless you call switchScene() the current scene will be the last one created.
+    public void newScene(Scene scene, String name) {
         ui.addPanel(scene.getPanel(), name);
         scenes.put(name, scene);
     }
