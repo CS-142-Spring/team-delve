@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String args[]) {
 
-        Engine engine = new Engine(1920, 1080);
+        Engine engine = new Engine(1664, 936);
 
         engine.newScene(new MainMenu(), "Main Menu");
         engine.newScene(new OptionsMenu(), "Options Menu");

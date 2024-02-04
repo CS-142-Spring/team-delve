@@ -36,8 +36,8 @@ public class Scene {
         return uiPanel;
     }
 
-    public BorderLayout getLayout() {
-        return uiLayout;
-    }
+    // public BorderLayout getLayout() {
+    //     return uiLayout;
+    // }
     
 }

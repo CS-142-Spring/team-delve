@@ -1,5 +1,7 @@
 package Game.Scenes;
 
+import java.awt.BorderLayout;
+
 import Engine.Scene;
 import Engine.UI.Label;
 
@@ -14,7 +16,7 @@ public class OptionsMenu extends Scene {
         placeholder = new Label("Options Menu");
         placeholder.setFontSize("regular");
 
-        getPanel().add(placeholder, getLayout().NORTH);
+        getPanel().add(placeholder, BorderLayout.NORTH);
 
     }
     

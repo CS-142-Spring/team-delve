@@ -12,6 +12,7 @@ public class Label extends JLabel {
         super(text);
 
         setForeground(Color.WHITE);
+        setFontSize("regular");
     }
 
     public void setColor(Color color) {
