@@ -1,4 +1,5 @@
 import Engine.*;
+import Game.Game;
 import Game.Scenes.*;
 
 public class Main {
@@ -10,6 +11,8 @@ public class Main {
         engine.newScene(new MainMenu(), "Main Menu");
         engine.newScene(new OptionsMenu(), "Options Menu");
         engine.newScene(new GameScene(), "Game Scene");
+
+        Game game = new Game(4);
 
     }
 }

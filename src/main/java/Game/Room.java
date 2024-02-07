@@ -1,11 +1,16 @@
 package Game;
 
 import java.util.List;
+
+import Game.Scenes.GameScene;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Room {
 
     private boolean isTrap;
+    private boolean isStart;
     private boolean isExit;
 
     // A room description/message that will be displayed when entering the room.
@@ -17,11 +22,29 @@ public class Room {
     public Room exitLeft;
     public Room exitRight;
 
-    public Room(int depth) {
+    private Room parent;
+    private List<Room> exits;
 
-        roomDepth = depth;
-        exitRight = null;
-        exitLeft = null;
+    public Room() {
 
+        this.exits = new LinkedList<>();
+    }
+
+    public Room addExit() {
+
+        Room exit = new Room();
+        exit.parent = this;
+        this.exits.add(exit);
+
+        return exit;
+    }
+
+    public void enter() {
+
+        if (exitRight != null) {
+            GameScene.addTextLine("On the back wall you see two doors.");
+        } else {
+            GameScene.addTextLine("On the back wall you see a door.");
+        }
     }
 }
