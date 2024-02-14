@@ -8,20 +8,20 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Engine.Engine;
 import Engine.Scene;
 import Engine.UI.Button;
 import Engine.UI.Label;
+import Engine.UI.Panel;
 import Engine.UI.UI;
 
 public class OptionsMenu extends Scene {
 
     private BoxLayout boxLayout;
 
-    private JPanel namePanel;
+    private Panel namePanel;
     private Label enterName;
     private JTextField field;
     private Button enter;
@@ -32,8 +32,10 @@ public class OptionsMenu extends Scene {
 
         boxLayout = new BoxLayout(getPanel(), BoxLayout.PAGE_AXIS);
         getPanel().setLayout(boxLayout);
+        getPanel().setBackgroundImage("resources/image/main_menu.png");
         
-        namePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        namePanel = new Panel();
+        namePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         namePanel.setBackground(Color.BLACK);
 
         enterName = new Label("Enter Player Name: ");

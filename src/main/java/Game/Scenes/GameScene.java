@@ -41,6 +41,7 @@ public class GameScene extends Scene {
 
         super();
 
+        getPanel().setBackgroundImage("resources/image/main_menu.png");
         Border border = BorderFactory.createLineBorder(Color.WHITE);
 
         topPanel = new JPanel();
