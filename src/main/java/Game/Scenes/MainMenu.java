@@ -29,6 +29,7 @@ public class MainMenu extends Scene {
 
         boxLayout = new BoxLayout(getPanel(), BoxLayout.PAGE_AXIS);
         getPanel().setLayout(boxLayout);
+        getPanel().setBackgroundImage("resources/image/main_menu.png");
 
         title = new Label("Delve");
         title.setFontSize("large");

@@ -1,23 +1,17 @@
 package Engine;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 
-import javax.swing.JPanel;
+import Engine.UI.Panel;
 
 public class Scene {
 
-    private JPanel uiPanel;
-    private BorderLayout uiLayout;
+    private Panel uiPanel;
 
     public Scene() {
 
         // Initialize the scenes interface.
-        uiLayout = new BorderLayout();
-
-        uiPanel = new JPanel();
-        uiPanel.setLayout(uiLayout);
-        uiPanel.setBackground(Color.BLACK);
+        uiPanel = new Panel();
     }
 
     public void update() {
@@ -32,12 +26,12 @@ public class Scene {
         uiPanel.setBackground(background);
     }
 
-    public JPanel getPanel() {
+    public Panel getPanel() {
         return uiPanel;
     }
 
-    public BorderLayout getLayout() {
-        return uiLayout;
-    }
+    // public BorderLayout getLayout() {
+    //     return uiLayout;
+    // }
     
 }
