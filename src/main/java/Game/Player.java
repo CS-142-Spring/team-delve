@@ -3,7 +3,7 @@ package Game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player extends Main {
+public class Player {
     private int health;
     private int hunger;
     private int strength;
@@ -42,7 +42,7 @@ public class Player extends Main {
     }
 
     // Method to add an item to the inventory
-    public void addToInventory(String string) {
+    public void addToInventory(Item string) {
         inventory.add(string);
         System.out.println("Added " + string + " to the inventory.");
     }
@@ -55,10 +55,7 @@ public class Player extends Main {
         System.out.println("Strength: " + strength);
         System.out.println("Inventory: " + inventory);
         
-        Player player;
-		// Add items to the inventory
-        player.addToInventory("Sword");
-        player.addToInventory("Shield");
+    
     }
 
     private int xCoordinate;
