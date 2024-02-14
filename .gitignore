@@ -1,6 +1,6 @@
 .gradle
 .idea
-.project/
+.project
 build
 notes.txt
 .settings

@@ -7,7 +7,7 @@ public class Player {
     private int health;
     private int hunger;
     private int strength;
-    private List<String> inventory;
+    private List<Item> inventory;
 
 
     public Player(int initialHealth, int initialHunger, int initialStrength) {
@@ -42,9 +42,9 @@ public class Player {
     }
 
     // Method to add an item to the inventory
-    public void addToInventory(String item) {
-        inventory.add(item);
-        System.out.println("Added " + item + " to the inventory.");
+    public void addToInventory(Item string) {
+        inventory.add(string);
+        System.out.println("Added " + string + " to the inventory.");
     }
 
     // Method to display player information
@@ -54,25 +54,28 @@ public class Player {
         System.out.println("Hunger: " + hunger);
         System.out.println("Strength: " + strength);
         System.out.println("Inventory: " + inventory);
+        
+    
     }
 
-    // Example main method for testing
-    public static void main(String[] args) {
-        // Create a new player
-        Player player = new Player(100, 50, 10);
+    private int xCoordinate;
+    private int yCoordinate;
 
-        // Display initial player information
-        player.displayPlayerInfo();
+    public Player(int initialX, int initialY) {
+        this.xCoordinate = initialX;
+        this.yCoordinate = initialY;
+    }
 
-        // Add items to the inventory
-        player.addToInventory("Sword");
-        player.addToInventory("Shield");
+    public int getXCoordinate() {
+        return xCoordinate;
+    }
 
-        // Update player information and display again
-        player.setHealth(80);
-        player.setHunger(40);
-        player.setStrength(15);
+    public int getYCoordinate() {
+        return yCoordinate;
+    }
 
-        player.displayPlayerInfo();
+    public void movePlayer(int newX, int newY) {
+        this.xCoordinate = newX;
+        this.yCoordinate = newY;
     }
 }
