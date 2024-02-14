@@ -6,14 +6,51 @@ import Game.Scenes.GameScene;
 
 public class Map {
 
-    private Room root;
     private static Room currentRoom;
 
-    public Map(int rooms) {
+    private int rooms[][];
 
-        startRoom = generate(rooms);
-        startRoom.enter();
-        currentRoom = startRoom;
+    public Map(int size) {
+
+        rooms = new int[size][size];
+
+        int x = 0;
+        int y = 0;
+
+        int length = size;
+        for (int i = 0; i < length; i++) {
+
+            rooms[y][x] = 1;
+
+            int dir = (int) ((Math.random() * (5 - 1)) + 1);
+            switch (dir) {
+                case 1:
+                    if (y > 0) y--; break;
+                case 2:
+                    if (y < size) y++; break;
+                case 3:
+                    if (x > 0) x--; break;
+                case 4:
+                    if (x < size) x++; break;
+            }
+        }
+
+        debugPrint();
+
+        // startRoom = generate(rooms);
+        // startRoom.enter();
+        // currentRoom = startRoom;
+    }
+
+    public void debugPrint() {
+
+        for (int i = 0; i < rooms.length; i++) {
+            for (int j = 0; j < rooms.length; j++) {
+
+                System.out.print(rooms[i][j]);
+            }
+            System.out.println("");
+        }
     }
 
     public Room getCurrentRoom() {
@@ -37,13 +74,9 @@ public class Map {
 
     private Room startRoom;
 
-    private Room generate(int rooms) {
-
-        Random rand = new Random();
-
-        this.root = new Room();
-
-        return root;
-    }
+    // private Room generate(int rooms) {
+    //
+    //     Random rand = new Random();
+    // }
 
 }

@@ -14,7 +14,7 @@ public class Game {
         GameScene.addTextLine("You can't quite remember what.");
         GameScene.addTextLine("You have to get out of here.");
 
-        map = new Map(4);
+        map = new Map(40);
     }
 
 }
