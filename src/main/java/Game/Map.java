@@ -35,7 +35,7 @@ public class Map {
             }
         }
 
-        debugPrint();
+        // debugPrint();
 
         // startRoom = generate(rooms);
         // startRoom.enter();
