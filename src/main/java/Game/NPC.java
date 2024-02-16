@@ -1,10 +1,9 @@
 package Game;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class NPC {
-    public static void main(String[] args)
+    public NPC(String[] args)
 
     {
         int NPC_selector = 0;

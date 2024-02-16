@@ -1,0 +1,19 @@
+{
+  "skeleton": {
+    "strength": 3,
+    "hp": 20
+  },
+  "zombie": {
+    "strength": 2,
+    "hp": 30
+  },
+  "slime": {
+    "strength": 1,
+    "hp": 10
+  },
+  "undead mage": {
+    "strength": 7,
+    "hp": 40
+    }
+
+  }
