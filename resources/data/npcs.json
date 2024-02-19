@@ -1,19 +1,38 @@
 {
-  "skeleton": {
-    "strength": 3,
-    "hp": 20
+  "Skeleton Warrior": {
+    "npc_id": 1,
+    "NPC_Strength": 5,
+    "hp": 35,
+    "accuracy":60
   },
-  "zombie": {
-    "strength": 2,
-    "hp": 30
+  "ogre": {
+    "npc_id": 2,
+    "NPC_Strength": 6,
+    "hp": 50,
+    "accuracy": 50
+  },
+  "skeleton": {
+    "npc_id": 3,
+    "NPC_Strength": 3,
+    "hp": 20,
+    "accuracy":2
   },
   "slime": {
-    "strength": 1,
-    "hp": 10
+    "npc_id": 3,
+    "NPC_Strength": 1,
+    "hp": 10,
+    "accuracy": 25
   },
   "undead mage": {
-    "strength": 7,
-    "hp": 40
-    }
-
+    "npc_id": 4,
+    "NPC_Strength": 5,
+    "hp": 40,
+    "accuracy": 65
+  },
+  "zombie": {
+    "npc_id": 5,
+    "NPC_Strength": 2,
+    "hp": 30,
+    "accuracy": 35
   }
+}
