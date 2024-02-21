@@ -1,23 +1,30 @@
 {
   "Sword": {
+    "type": "weapon",
     "description": "A sharp looking sword. Looks like it could do some damage.",
     "weight": 15,
-    "isPickable": true
+    "isPickable": true,
+    "damage": 10,
+    "value": 50,
+    "location": "Cave"
   },
-
-  "shield":  {
-
+  "Shield": {
+    "type": "armor",
     "description": "A metallic shield. Could be useful for protection.",
     "weight": 20,
-    "isPickable": true
-  }
-
-,
-
-  "potion": {
-    "name": "Potion",
+    "isPickable": true,
+    "defense": 5,
+    "value": 30,
+    "location": "Castle"
+  },
+  "Potion": {
+    "type": "potion",
     "description": "A mysterious potion. Who knows what it could do?",
     "weight": 5,
-    "isPickable": true
+    "isPickable": true,
+    "effect": "Heals 10 HP",
+    "quantity": 3,
+    "value": 10,
+    "location": "Forest"
   }
 }
