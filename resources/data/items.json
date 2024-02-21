@@ -1,0 +1,23 @@
+{
+  "Sword": {
+    "description": "A sharp looking sword. Looks like it could do some damage.",
+    "weight": 15,
+    "isPickable": true
+  },
+
+  "shield":  {
+
+    "description": "A metallic shield. Could be useful for protection.",
+    "weight": 20,
+    "isPickable": true
+  }
+
+,
+
+  "potion": {
+    "name": "Potion",
+    "description": "A mysterious potion. Who knows what it could do?",
+    "weight": 5,
+    "isPickable": true
+  }
+}
