@@ -1,10 +1,12 @@
 package Game;
 
 import Game.Scenes.GameScene;
+import Game.*;
 
 public class Game {
 
     private static Map map;
+    private static Player player;
 
     public Game(int mapDepth) { 
 
@@ -14,7 +16,16 @@ public class Game {
         GameScene.addTextLine("You can't quite remember what.");
         GameScene.addTextLine("You have to get out of here.");
 
-        map = new Map(40);
+    }
+
+    public static void Reset() {
+
+        map = new Map(5);
+    }
+
+    public static void InitPlayer(String name) {
+        
+        player = new Player(name);
     }
 
 }

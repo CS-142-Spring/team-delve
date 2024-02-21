@@ -1,55 +1,50 @@
 package Game;
 
+import Engine.Engine;
+import Game.Room;
 import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
 
 import Game.Scenes.GameScene;
 
 public class Map {
 
+    private static List<Room> rooms;
     private static Room currentRoom;
-
-    private int rooms[][];
+    private static int roomsVisited;
 
     public Map(int size) {
 
-        rooms = new int[size][size];
+        roomsVisited = 0;
+        Random rand = new Random();
 
-        int x = 0;
-        int y = 0;
+        rooms = new ArrayList<>();
 
-        int length = size;
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < size; i++) {
+            
+            int hasTrapExitChance = rand.nextInt(10 - 0 + 1);
+            boolean hasTrapExit = (hasTrapExitChance >= 7);
 
-            rooms[y][x] = 1;
+            Room newRoom = new Room(hasTrapExit);
+            rooms.add(newRoom);
 
-            int dir = (int) ((Math.random() * (5 - 1)) + 1);
-            switch (dir) {
-                case 1:
-                    if (y > 0) y--; break;
-                case 2:
-                    if (y < size) y++; break;
-                case 3:
-                    if (x > 0) x--; break;
-                case 4:
-                    if (x < size) x++; break;
-            }
+            System.out.println(hasTrapExit);
         }
 
-        // debugPrint();
-
-        // startRoom = generate(rooms);
-        // startRoom.enter();
-        // currentRoom = startRoom;
+        currentRoom = rooms.get(0);
+        currentRoom.enter();
     }
 
-    public void debugPrint() {
+    public static void enterNextRoom() {
 
-        for (int i = 0; i < rooms.length; i++) {
-            for (int j = 0; j < rooms.length; j++) {
+        if (roomsVisited < (rooms.size() - 1)) {
 
-                System.out.print(rooms[i][j]);
-            }
-            System.out.println("");
+            currentRoom = rooms.get(roomsVisited + 1);
+            currentRoom.enter();
+            roomsVisited++;
+        } else {
+            Engine.switchScene("End Scene");
         }
     }
 
@@ -57,22 +52,8 @@ public class Map {
         return currentRoom;
     }
 
-    public static void enterLeft() {
-        if (currentRoom.exitLeft != null) {
-            currentRoom.exitLeft.enter();
-        }
-    }
-
-    public static void enterRight() {
-        if (currentRoom.exitRight != null) {
-            currentRoom.exitRight.enter();
-        }
-    }
-
     // A generate function that creates a random map of rooms.
     // The map is a binary tree, where each room has a 50% chance of having a left and right exit.
-
-    private Room startRoom;
 
     // private Room generate(int rooms) {
     //

@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class Room {
 
-    private boolean isTrap;
+    private boolean hasTrapExit;
     private boolean isStart;
     private boolean isExit;
 
@@ -18,33 +18,21 @@ public class Room {
     private List<Item> items = new ArrayList<>();
     private List<NPC> npcs = new ArrayList<>();
 
-    public int roomDepth;
-    public Room exitLeft;
-    public Room exitRight;
+    public Room(boolean hasTrapExit) {
 
-    private Room parent;
-    private List<Room> exits;
-
-    public Room() {
-
-        this.exits = new LinkedList<>();
-    }
-
-    public Room addExit() {
-
-        Room exit = new Room();
-        exit.parent = this;
-        this.exits.add(exit);
-
-        return exit;
+        this.hasTrapExit = hasTrapExit;
     }
 
     public void enter() {
+        System.out.println(this);
 
-        if (exitRight != null) {
-            GameScene.addTextLine("On the back wall you see two doors.");
+        if (hasTrapExit) {
+            GameScene.setOptions("Left Door", "Right Door");
         } else {
-            GameScene.addTextLine("On the back wall you see a door.");
+
+            GameScene.setOptions("Door");
         }
+
+        GameScene.setText(this.toString());
     }
 }

@@ -4,18 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
+
+    private static String name;
     private int health;
     private int hunger;
     private int strength;
     private List<Item> inventory;
 
+    public Player(String characterName) {
 
-    public Player(int initialHealth, int initialHunger, int initialStrength) {
-        this.health = initialHealth;
-        this.hunger = initialHunger;
-        this.strength = initialStrength;
+        name = characterName;
+        this.health = 100;
+        this.hunger = 100;
+        this.strength = 10;
         this.inventory = new ArrayList<>();
     }
+
     	//Setting health, hunger, and strength
     public int getHealth() {
         return health;
@@ -39,6 +43,10 @@ public class Player {
 
     public void setStrength(int strength) {
         this.strength = strength;
+    }
+
+    public static String GetName() {
+        return name;
     }
 
     // Method to add an item to the inventory
