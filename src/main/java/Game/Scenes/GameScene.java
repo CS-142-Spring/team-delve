@@ -18,6 +18,7 @@ import Engine.UI.Button;
 import Engine.UI.Label;
 import Engine.UI.UI;
 import Game.Map;
+import Game.Player;
 
 public class GameScene extends Scene {
 
@@ -60,7 +61,17 @@ public class GameScene extends Scene {
         option1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                Map.enterLeft();
+                Map.enterNextRoom();
+            }
+        }); 
+
+        option2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                setText("This door seems to have a magical air about it.");
+                addTextLine("Would you still like to enter?");
+                setOptions("Yes", "No");
+                // Map.enterNextRoom();
             }
         }); 
 
@@ -90,6 +101,7 @@ public class GameScene extends Scene {
         text.setForeground(Color.WHITE);
         text.setFont(UI.getFont("regular"));
 
+        topPanel.add(Box.createRigidArea(new Dimension(24, 0)));
         topPanel.add(healthLabel);
         topPanel.add(Box.createRigidArea(new Dimension(24, 0)));
         topPanel.add(hungerLabel);

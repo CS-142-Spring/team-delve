@@ -10,6 +10,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 
+import Game.Game;
 import Engine.Engine;
 import Engine.Scene;
 import Engine.UI.Button;
@@ -47,6 +48,8 @@ public class OptionsMenu extends Scene {
         enter = new Button("Enter");
         enter.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                Game.InitPlayer(field.getText());
+                Game.Reset();
                 Engine.switchScene("Game Scene");
             }
         }); 

@@ -1,7 +1,7 @@
 import Engine.*;
 import Game.Game;
 import Game.Scenes.*;
-// import org.json.*;
+import main.java.Engine.Json;
 
 public class Main {
 
@@ -10,10 +10,12 @@ public class Main {
         Engine engine = new Engine(1664, 936);
 
         engine.newScene(new MainMenu(), "Main Menu");
-        engine.newScene(new OptionsMenu(), "Options Menu");
+        engine.newScene(new EndScene(), "Options Menu");
         engine.newScene(new GameScene(), "Game Scene");
+        engine.newScene(new EndScene(), "End Scene");
 
         Game game = new Game(4);
+        // Json.loadJson("resources/data/npcs.json");
 
     }
 }
