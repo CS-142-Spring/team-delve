@@ -27,7 +27,7 @@ public class Room {
         System.out.println(this);
 
         if (hasTrapExit) {
-            GameScene.setOptions("Left Door", "Right Door");
+            GameScene.setOptions("Door", "Totem");
         } else {
 
             GameScene.setOptions("Door");
