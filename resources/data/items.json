@@ -4,7 +4,7 @@
     "description": "A sharp looking sword. Looks like it could do some damage.",
     "weight": 15,
     "isPickable": true,
-    "damage": 10,
+    "damage": 5,
     "value": 50,
     "location": "Cave"
   },
