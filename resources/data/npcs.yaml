@@ -1,0 +1,29 @@
+skeleton_warrior:
+  strength: 5,
+  hp: 35,
+  accuracy: 60
+
+ogre:
+  strenght: 6,
+  hp: 50,
+  accuracy: 50
+
+skeleton:
+  strength: 3,
+  hp: 20,
+  accuracy: 2
+
+slime:
+  strenght: 1,
+  hp: 10,
+  accuracy: 25
+
+undead_mage:
+  strenght: 5,
+  hp: 40,
+  accuracy: 65
+
+zombie:
+  strenght: 2,
+  hp: 30,
+  accuracy: 35

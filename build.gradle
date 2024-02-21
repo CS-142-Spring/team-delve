@@ -17,6 +17,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.4'
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '2.2'
 }
 
 application {

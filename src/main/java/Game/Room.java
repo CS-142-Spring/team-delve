@@ -29,10 +29,13 @@ public class Room {
         if (hasTrapExit) {
             GameScene.setOptions("Door", "Totem");
         } else {
-
             GameScene.setOptions("Door");
         }
 
-        GameScene.setText(this.toString());
+        GameScene.setText("You walk into the room.");
+        GameScene.addTextLine("You see a door on the back wall.");
+        if (hasTrapExit) {
+            GameScene.addTextLine("Next to the door you see a totem.");
+        }
     }
 }
