@@ -13,6 +13,7 @@ import javax.swing.Box;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import java.util.Random;
 import Engine.Scene;
 import Engine.UI.Button;
 import Engine.UI.Label;
@@ -37,10 +38,13 @@ public class GameScene extends Scene {
 
     private static Button option1;
     private static Button option2;
+    private boolean trapDoorConfirm;
 
     public GameScene() {
 
         super();
+
+        trapDoorConfirm = false;
 
         getPanel().setBackgroundImage("resources/image/main_menu.png");
         Border border = BorderFactory.createLineBorder(Color.WHITE);
@@ -61,17 +65,30 @@ public class GameScene extends Scene {
         option1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                Map.enterNextRoom();
+                if (!trapDoorConfirm) {
+                    Map.enterNextRoom();
+                } else {
+                    trapDoorEffect();
+                }
             }
         }); 
 
         option2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                setText("This door seems to have a magical air about it.");
-                addTextLine("Would you still like to enter?");
-                setOptions("Yes", "No");
-                // Map.enterNextRoom();
+                if (!trapDoorConfirm) {
+
+                    trapDoorConfirm = true;
+                    setText("The totem seems to have a magical air about it.");
+                    addTextLine("It's effects are unknown.");
+                    addTextLine("Would you still like to take it?");
+                    setOptions("Yes", "No");
+                } else {
+
+                    setText("You decide to play it safe.");
+                    setOptions("Door", "Totem");
+                    trapDoorConfirm = false;
+                }
             }
         }); 
 
@@ -118,6 +135,22 @@ public class GameScene extends Scene {
         getPanel().add(bottomPanel, BorderLayout.SOUTH);
         getPanel().add(text, BorderLayout.CENTER);
 
+    }
+
+    private void trapDoorEffect() {
+
+        Random rand = new Random();
+        int goodOrBad = rand.nextInt(10 - 0 + 1);
+
+        if (goodOrBad >= 6) {
+            setText("A sharp pain shoots through your body.");
+            addTextLine("You feel weakened.");
+        } else {
+            setText("Your body tingles. You feel revived!");
+        }
+
+        trapDoorConfirm = false;
+        setOptions("Door");
     }
 
     public static void setText(String str) {
