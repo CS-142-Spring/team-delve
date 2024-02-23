@@ -9,7 +9,6 @@ public class Player {
     private static String name;
     private static int health;
     private static int hunger;
-    private static int strength;
     private List<Item> inventory;
 
     public Player(String characterName) {
@@ -17,7 +16,6 @@ public class Player {
         name = characterName;
         health = 100;
         hunger = 100;
-        strength = 10;
         this.inventory = new ArrayList<>();
     }
 
@@ -25,7 +23,7 @@ public class Player {
 
         Random rand = new Random();
 
-        int max = 5 + strength;
+        int max = 10;
         int min = 5;
         int attack = rand.nextInt(max - min) + min;
 
@@ -49,14 +47,6 @@ public class Player {
         hunger = amount;
     }
 
-    public int getStrength() {
-        return strength;
-    }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
-
     public static String getName() {
         return name;
     }
@@ -67,12 +57,4 @@ public class Player {
         System.out.println("Added " + string + " to the inventory.");
     }
 
-    // Method to display player information
-    public void displayPlayerInfo() {
-        System.out.println("Player Information:");
-        System.out.println("Health: " + health);
-        System.out.println("Hunger: " + hunger);
-        System.out.println("Strength: " + strength);
-        System.out.println("Inventory: " + inventory);
-    }
 }
