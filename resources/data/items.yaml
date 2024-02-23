@@ -1,27 +1,14 @@
 sword:
+  name: "sword"
   type: "weapon"
   description: "A sharp looking sword. Looks like it could do some damage."
-  weight: 15
-  isPickable: true
-  damage: 10
-  value: 50
-  location: "cave"
 
 shield:
+  name: "shield"
   type: "armor"
   description: "A metallic shield. Could be useful for protection."
-  weight: 20
-  isPickable: true
-  defense: 5
-  value: 30
-  location: "Castle"
 
-Potion:
+potion:
+  name: "potion"
   type: "potion"
   description: "A mysterious potion. Who knows what it could do?"
-  weight: 5
-  isPickable: true
-  effect: "Heals 10 HP"
-  quantity: 3
-  value: 10
-  location: "Forest"

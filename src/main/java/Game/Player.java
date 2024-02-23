@@ -2,39 +2,51 @@ package Game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Player {
 
     private static String name;
-    private int health;
-    private int hunger;
-    private int strength;
+    private static int health;
+    private static int hunger;
+    private static int strength;
     private List<Item> inventory;
 
     public Player(String characterName) {
 
         name = characterName;
-        this.health = 100;
-        this.hunger = 100;
-        this.strength = 10;
+        health = 100;
+        hunger = 100;
+        strength = 10;
         this.inventory = new ArrayList<>();
     }
 
+    public static int attack() {
+
+        Random rand = new Random();
+
+        int max = 5 + strength;
+        int min = 5;
+        int attack = rand.nextInt(max - min) + min;
+
+        return attack;
+    }
+
     	//Setting health, hunger, and strength
-    public int getHealth() {
+    public static int getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public static void setHealth(int hp) {
+        health = hp;
     }
 
-    public int getHunger() {
+    public static int getHunger() {
         return hunger;
     }
 
-    public void setHunger(int hunger) {
-        this.hunger = hunger;
+    public static void setHunger(int amount) {
+        hunger = amount;
     }
 
     public int getStrength() {
@@ -45,7 +57,7 @@ public class Player {
         this.strength = strength;
     }
 
-    public static String GetName() {
+    public static String getName() {
         return name;
     }
 
@@ -62,28 +74,5 @@ public class Player {
         System.out.println("Hunger: " + hunger);
         System.out.println("Strength: " + strength);
         System.out.println("Inventory: " + inventory);
-        
-    
-    }
-
-    private int xCoordinate;
-    private int yCoordinate;
-
-    public Player(int initialX, int initialY) {
-        this.xCoordinate = initialX;
-        this.yCoordinate = initialY;
-    }
-
-    public int getXCoordinate() {
-        return xCoordinate;
-    }
-
-    public int getYCoordinate() {
-        return yCoordinate;
-    }
-
-    public void movePlayer(int newX, int newY) {
-        this.xCoordinate = newX;
-        this.yCoordinate = newY;
     }
 }

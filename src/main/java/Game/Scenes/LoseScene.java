@@ -8,24 +8,22 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JTextField;
 
 import Engine.Engine;
 import Engine.Scene;
 import Engine.UI.Button;
 import Engine.UI.Label;
 import Engine.UI.Panel;
-import Engine.UI.UI;
 
-public class EndScene extends Scene {
+public class LoseScene extends Scene {
 
     private BoxLayout boxLayout;
 
     private Panel messagePanel;
-    private Label victoryMessage;
+    private Label messageLabel;
     private Button menu;
 
-    public EndScene() {
+    public LoseScene() {
 
         super();
 
@@ -37,8 +35,9 @@ public class EndScene extends Scene {
         messagePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         messagePanel.setBackground(Color.BLACK);
 
-        victoryMessage = new Label("Congratulations! You have escaped the dungeon.");
-        victoryMessage.setFontSize("regular");
+        messageLabel = new Label("You died! Better luck next time.");
+
+        messageLabel.setFontSize("regular");
 
         menu = new Button("Menu");
         menu.addActionListener(new ActionListener() {
@@ -47,7 +46,7 @@ public class EndScene extends Scene {
             }
         }); 
 
-        messagePanel.add(victoryMessage);
+        messagePanel.add(messageLabel);
 
         getPanel().add(Box.createRigidArea(new Dimension(0, 200)));
         getPanel().add(messagePanel);

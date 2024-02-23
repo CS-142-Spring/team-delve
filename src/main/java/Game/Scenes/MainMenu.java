@@ -18,7 +18,6 @@ public class MainMenu extends Scene {
     private BoxLayout boxLayout;
 
     private Button playButton;
-    private Button loadButton;
     private Button quitButton;
     private Label title;
     private Label subtitle;
@@ -39,20 +38,12 @@ public class MainMenu extends Scene {
         subtitle.setColor(Color.GRAY);
 
         playButton = new Button("Play");
-        loadButton = new Button("Load");
         quitButton = new Button("Quit");
 
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
                 Engine.switchScene("Options Menu");
-            }
-        });
-
-        loadButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-                Engine.switchScene("Game Scene");
             }
         });
 
@@ -70,7 +61,6 @@ public class MainMenu extends Scene {
         getPanel().add(Box.createRigidArea(new Dimension(0, 100)));
 
         getPanel().add(playButton);
-        getPanel().add(loadButton);
         getPanel().add(quitButton);
 
         getPanel().add(Box.createVerticalGlue());

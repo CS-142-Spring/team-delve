@@ -1,32 +1,68 @@
 package Game;
 
-import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import Game.Scenes.GameScene;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.HashMap;
 
 public class Room {
 
-    private boolean hasTrapExit;
-    private boolean isStart;
-    private boolean isExit;
+    private boolean hasTotem;
 
-    // A room description/message that will be displayed when entering the room.
-    private String description;
-    private List<Item> items = new ArrayList<>();
-    private List<NPC> npcs = new ArrayList<>();
+    private Map<String, NPC> npcs = new HashMap<>();
 
-    public Room(boolean hasTrapExit) {
+    public Room(boolean hasTotem) {
 
-        this.hasTrapExit = hasTrapExit;
+        this.hasTotem = hasTotem;
+    }
+
+    public void addNPC(NPC npc) {
+        npcs.put(npc.getType(), npc);
+    }
+
+    public NPC getNPC(String type) {
+        return npcs.get(type);
     }
 
     public void enter() {
-        System.out.println(this);
 
-        if (hasTrapExit) {
+        Random rand = new Random();
+
+        int npcAmount = rand.nextInt(5 - 1) + 1;
+
+        NPC npc = new NPC("Slime", 5, 3, 10);
+        GameScene.resetRoomItems();
+        GameScene.setHasTotem(hasTotem);
+
+        for (int i = 0; i < npcAmount; i++) {
+
+            int npcType = rand.nextInt(3) + 1;
+            switch (npcType) {
+                case 1:
+                    npc = new NPC("Slime", 5, 3, 10);
+                    break;
+                case 2:
+                    npc = new NPC("Skeleton", 10, 3, 10);
+                    break;
+                case 3:
+                    npc = new NPC("Zombie", 15, 8, 12);
+                    break;
+
+                default:
+                    break;
+            }
+            
+            addNPC(npc);
+        }
+
+        for (Map.Entry<String, NPC> entry : npcs.entrySet()) {
+            NPC val = entry.getValue();
+            GameScene.addNPC(val);
+        }
+
+        if (hasTotem) {
             GameScene.setOptions("Door", "Totem");
         } else {
             GameScene.setOptions("Door");
@@ -34,7 +70,7 @@ public class Room {
 
         GameScene.setText("You walk into the room.");
         GameScene.addTextLine("You see a door on the back wall.");
-        if (hasTrapExit) {
+        if (hasTotem) {
             GameScene.addTextLine("Next to the door you see a totem.");
         }
     }

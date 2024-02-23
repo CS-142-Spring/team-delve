@@ -4,17 +4,31 @@ import Engine.Engine;
 import Game.Room;
 import java.util.Random;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import org.yaml.snakeyaml.*;
+import org.yaml.snakeyaml.constructor.Constructor;
 
 import Game.Scenes.GameScene;
+import Game.*;
 
-public class Map {
+class ItemData {
+    public String name;
+    public String type;
+    public String description;
+}
+
+public class GameMap {
 
     private static List<Room> rooms;
     private static Room currentRoom;
     private static int roomsVisited;
 
-    public Map(int size) {
+    public GameMap(int size) {
 
         roomsVisited = 0;
         Random rand = new Random();
@@ -23,13 +37,12 @@ public class Map {
 
         for (int i = 0; i < size; i++) {
             
-            int hasTrapExitChance = rand.nextInt(10 - 0 + 1);
-            boolean hasTrapExit = (hasTrapExitChance >= 7);
+            int hasTotemChance = rand.nextInt(10);
+            boolean hasTotem = (hasTotemChance >= 8);
 
-            Room newRoom = new Room(hasTrapExit);
+            Room newRoom = new Room(hasTotem);
+
             rooms.add(newRoom);
-
-            System.out.println(hasTrapExit);
         }
 
         currentRoom = rooms.get(0);
@@ -44,11 +57,11 @@ public class Map {
             currentRoom.enter();
             roomsVisited++;
         } else {
-            Engine.switchScene("End Scene");
+            Engine.switchScene("Win Scene");
         }
     }
 
-    public Room getCurrentRoom() {
+    public static Room getCurrentRoom() {
         return currentRoom;
     }
 

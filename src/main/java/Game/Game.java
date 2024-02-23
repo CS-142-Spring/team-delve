@@ -5,8 +5,9 @@ import Game.*;
 
 public class Game {
 
-    private static Map map;
+    private static GameMap map;
     private static Player player;
+
 
     public Game(int mapDepth) { 
 
@@ -20,7 +21,7 @@ public class Game {
 
     public static void Reset() {
 
-        map = new Map(5);
+        map = new GameMap(15);
     }
 
     public static void InitPlayer(String name) {

@@ -1,17 +1,16 @@
 package Game;
 
 public class Item {
+
     private String name;
+    private String type;
     private String description;
-    private int weight;
-    private boolean isPickable;
 
     // Constructor to initialize the Item object
-    public Item(String name, String description, int weight, boolean isPickable) {
+    public Item(String name, String type, String description) {
         this.name = name;
+        this.type = type;
         this.description = description;
-        this.weight = weight;
-        this.isPickable = isPickable;
     }
 
     // Getter method for name
@@ -22,16 +21,6 @@ public class Item {
     // Getter method for description
     public String getDescription() {
         return description;
-    }
-
-    // Getter method for weight
-    public int getWeight() {
-        return weight;
-    }
-
-    // Getter method to check if the item can be picked up
-    public boolean isPickable() {
-        return isPickable;
     }
 
     // Method to describe the item

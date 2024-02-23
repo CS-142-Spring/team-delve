@@ -11,6 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 
 import Game.Game;
+import Game.Player;
 import Engine.Engine;
 import Engine.Scene;
 import Engine.UI.Button;
@@ -49,7 +50,9 @@ public class OptionsMenu extends Scene {
         enter.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Game.InitPlayer(field.getText());
+                System.out.println(field.getText());
                 Game.Reset();
+                GameScene.setPlayerName(Player.getName());
                 Engine.switchScene("Game Scene");
             }
         }); 
