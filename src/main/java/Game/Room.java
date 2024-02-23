@@ -73,5 +73,12 @@ public class Room {
         if (hasTotem) {
             GameScene.addTextLine("Next to the door you see a totem.");
         }
+
+        if (Player.getHunger() <= 0) {
+            
+            GameScene.addTextLine("You are starving! (-10 HP)");
+            Player.setHealth(Player.getHealth() - 10);
+            GameScene.updateHPLabel();
+        }
     }
 }

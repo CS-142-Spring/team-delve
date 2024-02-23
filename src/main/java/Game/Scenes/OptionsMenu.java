@@ -49,8 +49,8 @@ public class OptionsMenu extends Scene {
         enter = new Button("Enter");
         enter.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
                 Game.InitPlayer(field.getText());
-                System.out.println(field.getText());
                 Game.Reset();
                 GameScene.setPlayerName(Player.getName());
                 Engine.switchScene("Game Scene");

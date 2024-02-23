@@ -40,8 +40,8 @@ enum State {
 public class GameScene extends Scene {
 
     private static Label nameLabel;
-    private Label healthLabel;
-    private Label hungerLabel;
+    private static Label healthLabel;
+    private static Label hungerLabel;
     private Label roomLabel;
     private Label invLabel;
 
@@ -96,7 +96,7 @@ public class GameScene extends Scene {
 
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) { // To avoid multiple events being fired
+                if (!e.getValueIsAdjusting()) {
 
                     if (state != State.IDLE) return;
                     // Get the selected value from the JList
@@ -180,7 +180,7 @@ public class GameScene extends Scene {
         invLabel = new Label("Inventory");
 
         text = new JTextArea();
-        text.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
+        text.setText("");
         text.setWrapStyleWord(true);
         text.setLineWrap(true);
         text.setOpaque(false);
@@ -248,16 +248,16 @@ public class GameScene extends Scene {
 
                 addTextLine("The " + enemy.getType() + " deals " + enemyAttack + " damage.");
                 Player.setHealth(Player.getHealth() - enemyAttack);
-                healthLabel.setText("HP: " + Player.getHealth());
+                updateHPLabel();
 
                 if (Player.getHealth() <= 0) {
                     changeState(State.IDLE);         
                     Engine.switchScene("Lose Scene"); 
                 }
 
-                addTextLine("You deal " + playerAttack + " damage. (-2 Hunger)");
-                Player.setHunger(Player.getHunger() - 2);
-                hungerLabel.setText("Hunger: " + Player.getHunger());
+                addTextLine("You deal " + playerAttack + " damage. (-5 Hunger)");
+                Player.setHunger(Player.getHunger() - 5);
+                updateHungerLabel();
                 enemy.hit(playerAttack);
 
             }
@@ -267,6 +267,10 @@ public class GameScene extends Scene {
                 
             lootItem1 = randomItem();
             lootItem2 = randomItem();
+            // Make sure the second item is different.
+            while (lootItem2.getName() == lootItem1.getName()) {
+                lootItem2 = randomItem();
+            }
 
             setOptions(lootItem1.getName(), lootItem2.getName());
             changeState(State.LOOT);
@@ -278,21 +282,22 @@ public class GameScene extends Scene {
     private Item randomItem() {
 
         Random rand = new Random();
-        int itemType = rand.nextInt(3 - 1) + 1;
+        int itemType = rand.nextInt(6) + 1;
+        System.err.println(itemType);
         Item item = new Item("Bread", "food", "A bit of old bread.");
 
         switch (itemType) {
             case 1:
-            break;
+                break;
             case 2:
-            item = new Item("Health Potion", "food", "A blue glowing bottle."); 
-            break;
+                item = new Item("Health Potion", "food", "A blue glowing bottle."); 
+                break;
             case 3:
-            item = new Item("Strenght Potion", "food", "Increases strenght by 5."); 
-            break;
-
-            default:
-            break;
+                item = new Item("Health Potion", "food", "A blue glowing bottle."); 
+                break;
+            case 6: // More rare.
+                item = new Item("Combo Potion", "food", "Restores HP and hunger."); 
+                break;
         }
     
         return item;
@@ -306,16 +311,26 @@ public class GameScene extends Scene {
             addTextLine("You take the bread.");
             addTextLine("You feel a little less hungry. (+5 Hunger)");
             Player.setHunger(Math.min(Player.getHunger() + 5, 100));
-            hungerLabel.setText("Hunger: " + Player.getHunger());
+            updateHungerLabel();
 
         } else if (item.getName() == "Health Potion") {
 
             setText(item.getDescription());
             addTextLine("You take the health potion.");
-            addTextLine("You feel a bit better. (+5 HP)");
-            Player.setHealth(Math.min(Player.getHealth() + 5, 100));
-            healthLabel.setText("HP: " + Player.getHealth());
+            addTextLine("You feel a bit better. (+10 HP)");
+            Player.setHealth(Math.min(Player.getHealth() + 10, 100));
+            updateHPLabel();
 
+        } else if (item.getName() == "Combo Potion") {
+
+            setText(item.getDescription());
+            addTextLine("You take the potion.");
+            addTextLine("You feel a little less hungry. (+10 Hunger)");
+            addTextLine("You feel a bit better. (+10 HP)");
+            Player.setHealth(Math.min(Player.getHealth() + 10, 100));
+            Player.setHunger(Math.min(Player.getHunger() + 10, 100));
+            updateHPLabel();
+            updateHungerLabel();
         }
     }
 
@@ -328,7 +343,7 @@ public class GameScene extends Scene {
             setText("A sharp pain shoots through your body.");
             addTextLine("You feel weakened. (-10 HP)");
             Player.setHealth(Player.getHealth() - 10);
-            healthLabel.setText("HP: " + Player.getHealth());
+            updateHPLabel();
 
             if (Player.getHealth() <= 0) {
                 changeState(State.IDLE);         
@@ -339,6 +354,7 @@ public class GameScene extends Scene {
             addTextLine("You feel revived! (+10 HP)");
             Player.setHealth(Math.min(Player.getHealth() + 10, 100));
             healthLabel.setText("HP: " + Player.getHealth());
+            updateHPLabel();
         }
 
         hasTotem = false;
@@ -374,6 +390,14 @@ public class GameScene extends Scene {
 
     public static void addTextLine(String str) {
         text.setText(text.getText() + "\n" + str);
+    }
+
+    public static void updateHPLabel() {
+        healthLabel.setText("HP: " + Player.getHealth());
+    }
+
+    public static void updateHungerLabel() {
+        hungerLabel.setText("Hunger: " + Player.getHunger());
     }
 
     public static void setOptions(String opt) {
