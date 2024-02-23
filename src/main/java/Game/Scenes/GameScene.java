@@ -251,7 +251,8 @@ public class GameScene extends Scene {
                 healthLabel.setText("HP: " + Player.getHealth());
 
                 if (Player.getHealth() <= 0) {
-                   Engine.switchScene("Lose Scene"); 
+                    changeState(State.IDLE);         
+                    Engine.switchScene("Lose Scene"); 
                 }
 
                 addTextLine("You deal " + playerAttack + " damage. (-2 Hunger)");
@@ -284,7 +285,7 @@ public class GameScene extends Scene {
             case 1:
             break;
             case 2:
-            item = new Item("Health Potion", "food", "Restores 5 HP."); 
+            item = new Item("Health Potion", "food", "A blue glowing bottle."); 
             break;
             case 3:
             item = new Item("Strenght Potion", "food", "Increases strenght by 5."); 
@@ -301,14 +302,16 @@ public class GameScene extends Scene {
 
         if (item.getName() == "Bread") {
 
-            setText("You take the bread.");
+            setText(item.getDescription());
+            addTextLine("You take the bread.");
             addTextLine("You feel a little less hungry. (+5 Hunger)");
             Player.setHunger(Math.min(Player.getHunger() + 5, 100));
             hungerLabel.setText("Hunger: " + Player.getHunger());
 
         } else if (item.getName() == "Health Potion") {
 
-            setText("You take the health potion.");
+            setText(item.getDescription());
+            addTextLine("You take the health potion.");
             addTextLine("You feel a bit better. (+5 HP)");
             Player.setHealth(Math.min(Player.getHealth() + 5, 100));
             healthLabel.setText("HP: " + Player.getHealth());
@@ -328,6 +331,7 @@ public class GameScene extends Scene {
             healthLabel.setText("HP: " + Player.getHealth());
 
             if (Player.getHealth() <= 0) {
+                changeState(State.IDLE);         
                 Engine.switchScene("Lose Scene"); 
             }
         } else {
