@@ -14,14 +14,7 @@ public class Scene {
         uiPanel = new Panel();
     }
 
-    public void update() {
-
-    }
-
-    public void draw() {
-
-    }
-
+    // Theming.
     public void setColors(Color background) {
         uiPanel.setBackground(background);
     }
@@ -29,9 +22,5 @@ public class Scene {
     public Panel getPanel() {
         return uiPanel;
     }
-
-    // public BorderLayout getLayout() {
-    //     return uiLayout;
-    // }
     
 }

@@ -25,6 +25,7 @@ import Engine.Scene;
 import Engine.UI.Button;
 import Engine.UI.Label;
 import Engine.UI.UI;
+import Game.Game;
 import Game.GameMap;
 import Game.Item;
 import Game.NPC;
@@ -43,7 +44,6 @@ public class GameScene extends Scene {
     private static Label healthLabel;
     private static Label hungerLabel;
     private Label roomLabel;
-    private Label invLabel;
 
     private static DefaultListModel<String> itemListModel;
     private static JList<String> roomList;
@@ -73,6 +73,7 @@ public class GameScene extends Scene {
         canExit = false;
         state = State.IDLE;
 
+        // Initialize interface.
         getPanel().setBackgroundImage("resources/image/main_menu.png");
         Border border = BorderFactory.createLineBorder(Color.WHITE);
 
@@ -92,6 +93,7 @@ public class GameScene extends Scene {
         roomList.setBackground(Color.BLACK);
         roomList.setForeground(Color.WHITE);
 
+        // Enemy selection action.
         roomList.addListSelectionListener(new ListSelectionListener() {
 
             @Override
@@ -112,6 +114,7 @@ public class GameScene extends Scene {
         option1 = new Button("Option 1");
         option2 = new Button("Option 2");
 
+        // Option 1 action.
         option1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -133,12 +136,14 @@ public class GameScene extends Scene {
 
                 } else if (state == State.LOOT) {
 
-                    takeItem(lootItem1);
+                    // takeItem(lootItem1);
+                    lootItem1.take();
                     changeState(State.IDLE);
                 }
             }
         }); 
 
+        // Option 2 action.
         option2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -159,7 +164,8 @@ public class GameScene extends Scene {
 
                 } else if (state == State.LOOT) {
 
-                    takeItem(lootItem2);
+                    // takeItem(lootItem2);
+                    lootItem2.take();
                     changeState(State.IDLE);
                 }
             }
@@ -177,7 +183,6 @@ public class GameScene extends Scene {
         healthLabel = new Label("HP: 100");
         hungerLabel = new Label("Hunger: 100");
         roomLabel = new Label("Enemies");
-        invLabel = new Label("Inventory");
 
         text = new JTextArea();
         text.setText("");
@@ -213,21 +218,26 @@ public class GameScene extends Scene {
         
         this.state = state;
 
+        // Switch to idle state.
         if (this.state == State.IDLE) {
 
+            // Set action options depending on if there is a tote.
             if (hasTotem) {
                 setOptions("Door", "Totem");
             } else {
                 setOptions("Door");
             }
 
+        // Switch to totem interaction state.
         } else if (this.state == State.TOTEM) {
 
+            // Display totem warning.
             setText("The totem seems to have a magical air about it.");
             addTextLine("It's effects are unknown.");
             addTextLine("Would you still like to take it?");
             setOptions("Yes", "No");
 
+        // Switch to looting state.
         } else if (this.state == State.LOOT) {
 
             addTextLine("They dropped some loot!");
@@ -235,41 +245,52 @@ public class GameScene extends Scene {
         }
     }
 
+    // Sinulate a fight between player and enemy.
     private void fight(NPC enemy) {
 
         if (enemy != null) {
 
             setText("You fight the " + enemy.getType() + ".");
 
+            // Keep fighting so long as the enemy is alive.
             while (enemy.getHealth() > 0) {
 
-                int enemyAttack = enemy.attack();
-                int playerAttack = Player.attack();
+                int enemyAttack = enemy.attack(); // Generate enemy attack value.
+                int playerAttack = Player.attack(); // Generate player attack value.
 
                 addTextLine("The " + enemy.getType() + " deals " + enemyAttack + " damage.");
-                Player.setHealth(Player.getHealth() - enemyAttack);
+                Player.hit(enemyAttack);
                 updateHPLabel();
 
+                // Check if the player has died.
                 if (Player.getHealth() <= 0) {
+
+                    Game.resetPlayer();
+                    updateHPLabel();
+                    updateHungerLabel();
                     changeState(State.IDLE);         
                     Engine.switchScene("Lose Scene"); 
                 }
 
-                addTextLine("You deal " + playerAttack + " damage. (-5 Hunger)");
-                Player.setHunger(Player.getHunger() - 5);
-                updateHungerLabel();
+
                 enemy.hit(playerAttack);
+                
+                // Loose hunger points each attack.
+                addTextLine("You deal " + playerAttack + " damage. (-5 Hunger)");
+                Player.useHunger(5);
+                updateHungerLabel();
 
             }
 
             addTextLine("You have defeated the " + enemy.getType() + ".");
-            removeNPC(enemy);
+            removeNPC(enemy); // Remove the enemy from the room.
                 
-            lootItem1 = randomItem();
-            lootItem2 = randomItem();
+            // Generate random loot options.
+            lootItem1 = Item.random();
+            lootItem2 = Item.random();
             // Make sure the second item is different.
             while (lootItem2.getName() == lootItem1.getName()) {
-                lootItem2 = randomItem();
+                lootItem2 = Item.random();
             }
 
             setOptions(lootItem1.getName(), lootItem2.getName());
@@ -279,77 +300,33 @@ public class GameScene extends Scene {
 
     }
 
-    private Item randomItem() {
-
-        Random rand = new Random();
-        int itemType = rand.nextInt(6) + 1;
-        System.err.println(itemType);
-        Item item = new Item("Bread", "food", "A bit of old bread.");
-
-        switch (itemType) {
-            case 1:
-                break;
-            case 2:
-                item = new Item("Health Potion", "food", "A blue glowing bottle."); 
-                break;
-            case 3:
-                item = new Item("Health Potion", "food", "A blue glowing bottle."); 
-                break;
-            case 6: // More rare.
-                item = new Item("Combo Potion", "food", "Restores HP and hunger."); 
-                break;
-        }
-    
-        return item;
-    }
-
-    private void takeItem(Item item) {
-
-        if (item.getName() == "Bread") {
-
-            setText(item.getDescription());
-            addTextLine("You take the bread.");
-            addTextLine("You feel a little less hungry. (+5 Hunger)");
-            Player.setHunger(Math.min(Player.getHunger() + 5, 100));
-            updateHungerLabel();
-
-        } else if (item.getName() == "Health Potion") {
-
-            setText(item.getDescription());
-            addTextLine("You take the health potion.");
-            addTextLine("You feel a bit better. (+10 HP)");
-            Player.setHealth(Math.min(Player.getHealth() + 10, 100));
-            updateHPLabel();
-
-        } else if (item.getName() == "Combo Potion") {
-
-            setText(item.getDescription());
-            addTextLine("You take the potion.");
-            addTextLine("You feel a little less hungry. (+10 Hunger)");
-            addTextLine("You feel a bit better. (+10 HP)");
-            Player.setHealth(Math.min(Player.getHealth() + 10, 100));
-            Player.setHunger(Math.min(Player.getHunger() + 10, 100));
-            updateHPLabel();
-            updateHungerLabel();
-        }
-    }
-
     private void takeTotem() {
 
         Random rand = new Random();
+        // Random chance totem is good or bad.
         int goodOrBad = rand.nextInt(10 - 0 + 1);
 
-        if (goodOrBad >= 6) {
+        if (goodOrBad >= 6) { // Totem is bad!
+
+            // Deal damage to player.
             setText("A sharp pain shoots through your body.");
             addTextLine("You feel weakened. (-10 HP)");
-            Player.setHealth(Player.getHealth() - 10);
+            Player.hit(10);
             updateHPLabel();
 
+            // Check if player has died.
             if (Player.getHealth() <= 0) {
+
+                Game.resetPlayer();
+                updateHPLabel();
+                updateHungerLabel();
                 changeState(State.IDLE);         
                 Engine.switchScene("Lose Scene"); 
             }
-        } else {
+
+        } else { // Totem is good!
+
+            // Restore some hp.
             setText("Your body tingles.");
             addTextLine("You feel revived! (+10 HP)");
             Player.setHealth(Math.min(Player.getHealth() + 10, 100));
@@ -365,8 +342,12 @@ public class GameScene extends Scene {
         itemListModel.addElement(npc.getType());
     }
 
+    // Remove NPC from the room.
     public void removeNPC(NPC npc) {
+
         itemListModel.removeElement(npc.getType());
+
+        // If all npcs have been removed than set the room to be exitable.
         if (itemListModel.size() <= 0) {
             canExit = true;
         }

@@ -22,6 +22,7 @@ public class Room {
         npcs.put(npc.getType(), npc);
     }
 
+    // Get NPC from the NPC map.
     public NPC getNPC(String type) {
         return npcs.get(type);
     }
@@ -30,50 +31,39 @@ public class Room {
 
         Random rand = new Random();
 
-        int npcAmount = rand.nextInt(5 - 1) + 1;
-
-        NPC npc = new NPC("Slime", 5, 3, 10);
         GameScene.resetRoomItems();
         GameScene.setHasTotem(hasTotem);
 
+        // Add a random amount of enemies.
+        int npcAmount = rand.nextInt(5 - 1) + 1;
+
         for (int i = 0; i < npcAmount; i++) {
 
-            int npcType = rand.nextInt(3) + 1;
-            switch (npcType) {
-                case 1:
-                    npc = new NPC("Slime", 5, 3, 10);
-                    break;
-                case 2:
-                    npc = new NPC("Skeleton", 10, 3, 10);
-                    break;
-                case 3:
-                    npc = new NPC("Zombie", 15, 8, 12);
-                    break;
-
-                default:
-                    break;
-            }
-            
-            addNPC(npc);
+            NPC enemy = NPC.randomEnemy();
+            addNPC(enemy);
         }
 
+        // Add the enemies to the GameScene enemy interface list.
         for (Map.Entry<String, NPC> entry : npcs.entrySet()) {
             NPC val = entry.getValue();
             GameScene.addNPC(val);
         }
 
+        // Set game options depending on if there is a totem.
         if (hasTotem) {
             GameScene.setOptions("Door", "Totem");
         } else {
             GameScene.setOptions("Door");
         }
 
+        // Display entrance message.
         GameScene.setText("You walk into the room.");
         GameScene.addTextLine("You see a door on the back wall.");
         if (hasTotem) {
             GameScene.addTextLine("Next to the door you see a totem.");
         }
 
+        // Decrease player health if the player is starving.
         if (Player.getHunger() <= 0) {
             
             GameScene.addTextLine("You are starving! (-10 HP)");

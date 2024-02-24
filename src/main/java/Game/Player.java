@@ -9,20 +9,20 @@ public class Player {
     private static String name;
     private static int health;
     private static int hunger;
-    private List<Item> inventory;
 
     public Player(String characterName) {
 
+        // Initialize properties.
         name = characterName;
         health = 100;
         hunger = 100;
-        this.inventory = new ArrayList<>();
     }
 
     public static int attack() {
 
         Random rand = new Random();
 
+        // Generate random attack value.
         int max = 10;
         int min = 5;
         int attack = rand.nextInt(max - min) + min;
@@ -30,7 +30,14 @@ public class Player {
         return attack;
     }
 
-    	//Setting health, hunger, and strength
+    public static void hit(int damage) {
+        health -= damage;
+    }
+
+    public static void useHunger(int amount) {
+        hunger -= amount;
+    }
+
     public static int getHealth() {
         return health;
     }
@@ -51,10 +58,8 @@ public class Player {
         return name;
     }
 
-    // Method to add an item to the inventory
-    public void addToInventory(Item string) {
-        inventory.add(string);
-        System.out.println("Added " + string + " to the inventory.");
+    public static void setName(String str) {
+        name = str;
     }
 
 }

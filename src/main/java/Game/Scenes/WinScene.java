@@ -21,12 +21,13 @@ public class WinScene extends Scene {
 
     private Panel messagePanel;
     private Label victoryMessage;
-    private Button menu;
+    private Button quit;
 
     public WinScene() {
 
         super();
 
+        // Initialize interface.
         boxLayout = new BoxLayout(getPanel(), BoxLayout.PAGE_AXIS);
         getPanel().setLayout(boxLayout);
         getPanel().setBackgroundImage("resources/image/main_menu.png");
@@ -39,10 +40,12 @@ public class WinScene extends Scene {
 
         victoryMessage.setFontSize("regular");
 
-        menu = new Button("Menu");
-        menu.addActionListener(new ActionListener() {
+        quit = new Button("Quit");
+
+        // Quit button action.
+        quit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Engine.switchScene("Main Menu");
+                System.exit(0);
             }
         }); 
 
@@ -50,7 +53,7 @@ public class WinScene extends Scene {
 
         getPanel().add(Box.createRigidArea(new Dimension(0, 200)));
         getPanel().add(messagePanel);
-        getPanel().add(menu);
+        getPanel().add(quit);
 
     }
     

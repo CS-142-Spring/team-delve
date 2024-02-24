@@ -22,6 +22,7 @@ public class Button extends JButton {
 
         addMouseListener(new MouseAdapter() {
 
+            // Hilight button when it is moused over.
             @Override
             public void mouseEntered(MouseEvent e) {
                 setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));

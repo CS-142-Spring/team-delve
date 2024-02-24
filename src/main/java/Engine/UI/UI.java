@@ -15,18 +15,19 @@ public class UI {
 
     private JFrame frame;
     private CardLayout layout;
-    private JPanel panel;
+    private JPanel panel;       // The master JPanel.
 
     private static HashMap<String, Font> fonts = new HashMap<>();
 
     public UI(int width, int height) {
 
         frame = new JFrame("Delve");
-        layout = new CardLayout();
+        layout = new CardLayout();      // Card layout for switching between scene interfaces.
 
         // Font
         try {
 
+            // Load font file.
             File fontFile = new File("resources/font/Alegreya-Regular.ttf");
             Font loadedFont = Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
@@ -65,6 +66,7 @@ public class UI {
         layout.show(panel, name);
     }
 
+    // Get a font from the font map.
     public static Font getFont(String size) {
         return fonts.get(size);
     }

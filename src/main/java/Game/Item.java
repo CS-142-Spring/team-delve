@@ -1,5 +1,8 @@
 package Game;
 
+import java.util.Random;
+import Game.Scenes.GameScene;
+
 public class Item {
 
     private String name;
@@ -13,6 +16,74 @@ public class Item {
         this.description = description;
     }
 
+    public void take() {
+
+        int hpModifier = 0;
+        int hungerModifier = 0;
+
+        if (name == "Bread") {
+
+            // Display use message.
+            GameScene.setText(description);
+            GameScene.addTextLine("You take the bread.");
+            GameScene.addTextLine("You feel a little less hungry. (+5 Hunger)");
+
+            hungerModifier = 5;
+
+        } else if (name == "Health Potion") {
+
+            // Display use message.
+            GameScene.setText(description);
+            GameScene.addTextLine("You take the health potion.");
+            GameScene.addTextLine("You feel a bit better. (+10 HP)");
+
+            hpModifier = 10;
+
+        } else if (name == "Combo Potion") {
+
+            // Display use message.
+            GameScene.setText(description);
+            GameScene.addTextLine("You take the potion.");
+            GameScene.addTextLine("You feel a little less hungry. (+10 Hunger)");
+            GameScene.addTextLine("You feel a bit better. (+10 HP)");
+            
+            hungerModifier = 10;
+            hpModifier = 10;
+        }
+
+        // Apply effects.
+        Player.setHealth(Math.min(Player.getHealth() + hpModifier, 100));
+        Player.setHunger(Math.min(Player.getHunger() + hungerModifier, 100));
+        GameScene.updateHPLabel();
+        GameScene.updateHungerLabel();
+    }
+
+    // Generate a random item.
+    public static Item random() {
+
+        Random rand = new Random();
+        int itemType = rand.nextInt(6) + 1;
+
+        // Item is bread by default.
+        Item item = new Item("Bread", "food", "A bit of old bread.");
+
+        switch (itemType) {
+            case 1:
+                break;
+            case 2:
+                item = new Item("Health Potion", "food", "A blue glowing bottle."); 
+                break;
+            case 3:
+                item = new Item("Health Potion", "food", "A blue glowing bottle."); 
+                break;
+            case 6: // More rare.
+                item = new Item("Combo Potion", "food", "Restores HP and hunger."); 
+                break;
+        }
+    
+        return item;
+    }
+
     // Getter method for name
     public String getName() {
         return name;
@@ -23,17 +94,8 @@ public class Item {
         return description;
     }
 
-    // Method to describe the item
-    public void describe() {
-        System.out.println(name + ": " + description);
-    }
-
     public void use() {
         System.out.println("You cannot use this item.");
     }
 
-    // Method to drop the item
-    public void drop() {
-        System.out.println("You dropped " + name);
-    }
 }

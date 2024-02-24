@@ -27,9 +27,11 @@ public class Panel extends JPanel {
     }
 
     public void applyBorder() {
+        // Create an outline.
         setBorder(BorderFactory.createLineBorder(Color.WHITE));
     }
 
+    // Overide so we can render an image for the background.
     @Override
     protected void paintComponent(Graphics g) {
 
@@ -42,6 +44,7 @@ public class Panel extends JPanel {
         int imageWidth = backgroundImage.getWidth(this);
         int imageHeight = backgroundImage.getHeight(this);
 
+        // Scale image to fit in window.
         double scale = Math.max(
             (double) panelWidth/imageWidth,
             (double) panelHeight/imageHeight

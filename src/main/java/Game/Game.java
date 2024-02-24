@@ -11,22 +11,26 @@ public class Game {
 
     public Game(int mapDepth) { 
 
-        GameScene.setText("You wake up in a dark, damp room.");
-        GameScene.addTextLine("You are not sure how you got here.");
-        GameScene.addTextLine("There is a vague memory of something. Something bad.");
-        GameScene.addTextLine("You can't quite remember what.");
-        GameScene.addTextLine("You have to get out of here.");
-
+        player = new Player("");
     }
 
-    public static void Reset() {
+    public static void reset() {
 
-        map = new GameMap(15);
+        // Create map that is 20 rooms long.
+        map = new GameMap(20);
     }
 
-    public static void InitPlayer(String name) {
+    public static void resetPlayer() {
+
+        Player.setHunger(100);
+        Player.setHealth(100);
+    }
+
+    public static void initPlayer(String name) {
         
-        player = new Player(name);
+        resetPlayer();
+        Player.setName(name);
+        GameScene.setPlayerName(Player.getName());
     }
 
 }

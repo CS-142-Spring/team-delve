@@ -32,6 +32,7 @@ public class OptionsMenu extends Scene {
 
         super();
 
+        // Initialize interface.
         boxLayout = new BoxLayout(getPanel(), BoxLayout.PAGE_AXIS);
         getPanel().setLayout(boxLayout);
         getPanel().setBackgroundImage("resources/image/main_menu.png");
@@ -47,12 +48,13 @@ public class OptionsMenu extends Scene {
         field.setFont(UI.getFont("regular"));
 
         enter = new Button("Enter");
+
+        // Enter button action.
         enter.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                Game.InitPlayer(field.getText());
-                Game.Reset();
-                GameScene.setPlayerName(Player.getName());
+                Game.initPlayer(field.getText());
+                Game.reset();
                 Engine.switchScene("Game Scene");
             }
         }); 

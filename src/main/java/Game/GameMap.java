@@ -16,32 +16,28 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import Game.Scenes.GameScene;
 import Game.*;
 
-class ItemData {
-    public String name;
-    public String type;
-    public String description;
-}
-
 public class GameMap {
 
     private static List<Room> rooms;
     private static Room currentRoom;
     private static int roomsVisited;
 
-    public GameMap(int size) {
+    public GameMap(int lenght) {
 
-        roomsVisited = 0;
         Random rand = new Random();
 
+        roomsVisited = 0;
         rooms = new ArrayList<>();
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < lenght; i++) {
             
+            // Random chance that room has a totem.
             int hasTotemChance = rand.nextInt(10);
             boolean hasTotem = (hasTotemChance >= 8);
 
             Room newRoom = new Room(hasTotem);
 
+            // Add room to map.
             rooms.add(newRoom);
         }
 
@@ -51,12 +47,12 @@ public class GameMap {
 
     public static void enterNextRoom() {
 
-        if (roomsVisited < (rooms.size() - 1)) {
+        if (roomsVisited < (rooms.size() - 1)) { // Make sure we are not at the end of the map.
 
             currentRoom = rooms.get(roomsVisited + 1);
             currentRoom.enter();
             roomsVisited++;
-        } else {
+        } else { // Last room? You win!
             Engine.switchScene("Win Scene");
         }
     }
@@ -64,13 +60,5 @@ public class GameMap {
     public static Room getCurrentRoom() {
         return currentRoom;
     }
-
-    // A generate function that creates a random map of rooms.
-    // The map is a binary tree, where each room has a 50% chance of having a left and right exit.
-
-    // private Room generate(int rooms) {
-    //
-    //     Random rand = new Random();
-    // }
 
 }

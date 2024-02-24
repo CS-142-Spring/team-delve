@@ -26,6 +26,7 @@ public class MainMenu extends Scene {
 
         super();
 
+        // Initialize interface.
         boxLayout = new BoxLayout(getPanel(), BoxLayout.PAGE_AXIS);
         getPanel().setLayout(boxLayout);
         getPanel().setBackgroundImage("resources/image/main_menu.png");
@@ -40,6 +41,7 @@ public class MainMenu extends Scene {
         playButton = new Button("Play");
         quitButton = new Button("Quit");
 
+        // Play button action.
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -47,12 +49,14 @@ public class MainMenu extends Scene {
             }
         });
 
+        // Quit button action.
         quitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
 
+        // Add UI elements and position them.
         getPanel().add(Box.createRigidArea(new Dimension(0, 180)));
         getPanel().add(Box.createRigidArea(new Dimension(60, 0)));
 
